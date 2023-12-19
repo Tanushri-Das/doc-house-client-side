@@ -1,39 +1,49 @@
 import React from "react";
-import { FaStar, FaStarHalf, FaCalendar } from "react-icons/fa";
+import { FaCalendar } from "react-icons/fa";
 import "./OurDoctor.css";
-import { CiLocationOn } from "react-icons/ci";
+import { useTheme } from "../../../Contexts/ThemeProvider/ThemeProvider";
 
 const OurDoctor = ({ doctor }) => {
-  const { name, designation, location, available, charge, rateus, image } =
-    doctor;
+  const { name, designation, image, speciality } = doctor;
+  const date = new Date();
+  const { isDarkMode } = useTheme();
 
+  // Get the current date in the format "Mon, 22 December"
+  const options = { weekday: "short", day: "numeric", month: "long" };
+  const formattedDate = date.toLocaleDateString("en-US", options);
   return (
-    <div className="flex flex-col border border-gray-200 rounded-xl p-4 h-full">
-      <img src={image} alt="" className="mb-4" />
-      <h1 className="text-xl font-bold text-left mb-1">{name}</h1>
-      <h3 className="text-[16px] font-normal mb-3 designation">
+    <div className="flex flex-col border border-gray-200 rounded-xl p-3 h-full">
+      <img src={image} alt="" className="mb-2 rounded-xl" />
+      <h1
+        className={`text-xl font-bold text-left mb-2 ${
+          isDarkMode ? "text-white" : "text-gray-500"
+        }`}
+      >
+        {name}
+      </h1>
+      <h3
+        className={`text-[16px] font-normal mb-2 ${
+          isDarkMode ? "text-white" : "text-gray-500"
+        }`}
+      >
         {designation}
       </h3>
-
-      <div className="mb-6 flex justify-between items-center">
-        <div className="flex justify-center items-center">
-          {Array.from({ length: Math.floor(rateus) }, (_, index) => (
-            <FaStar key={index} className="star-color text-lg me-2" />
-          ))}
-          {rateus % 1 === 0.5 && <FaStarHalf className="star-color text-lg" />}
-        </div>
-      </div>
-      <div className="flex items-center mb-2">
-        <CiLocationOn className="text-lg" />
-        <p className="designation text-[16px] ms-2">{location}</p>
-      </div>
-      <div className="flex items-center mb-2">
-        <FaCalendar className="text-lg" />
-        <p className="designation text-[16px] ms-2">{available}</p>
-      </div>
-      <div className="flex items-center mb-5">
-        <FaCalendar className="text-lg" />
-        <p className="designation text-[16px] ms-2">{charge}</p>
+      <p
+        className={`text-[16px] font-normal mb-3 ${
+          isDarkMode ? "text-white" : "text-gray-500"
+        }`}
+      >
+        Speciality in {speciality}
+      </p>
+      <div className="flex mb-3">
+        <FaCalendar className="text-lg mt-1" />
+        <p
+          className={`text-[16px] font-normal ms-2 ${
+            isDarkMode ? "text-white" : "text-gray-500"
+          }`}
+        >
+          Available On {formattedDate} Mon, 22 December
+        </p>
       </div>
       <button className="view-profile">View Profile</button>
     </div>

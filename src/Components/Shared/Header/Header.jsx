@@ -1,70 +1,116 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../images/dochouselogo.png";
-import './Header.css'
+import "./Header.css";
+import { FiSun, FiMoon } from "react-icons/fi";
+import useAuth from "../../../Hooks/useAuth";
+import { useTheme } from "../../../Contexts/ThemeProvider/ThemeProvider";
 
 const Header = () => {
+  const { user, logOut } = useAuth();
+  const { isDarkMode, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
+  const handleLogout = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.error(error));
+  };
 
   return (
-    <nav className="pt-8">
-      <div className="max-w-7xl lg:mx-[135px] mx-auto px-4 sm:px-6 lg:px-8 border">
+    <nav
+      className={`shadow-lg ${
+        isDarkMode
+          ? "bg-dark-background text-dark-text"
+          : "bg-light-background text-light-text"
+      }`}
+    >
+      <div className="px-4 sm:px-6 py-3 lg:px-2">
         <div className="flex items-center justify-between h-16">
-        <div className="flex items-center">
+          <div className="flex items-center">
             <div className="flex items-center space-x-2">
               <img src={logo} alt="" className="h-8 w-8" />
-              <h2 className="text-lg font-semibold header-logo-text"><span className="doc">Doc</span> House</h2>
+              <h2
+                className={`text-2xl xl:text-4xl font-semibold header-logo-text ${
+                  isDarkMode ? "text-dark-text" : "text-light-text"
+                }`}
+              >
+                <span className="doc">Dental</span> Ease
+              </h2>
             </div>
           </div>
           <div className="flex items-center">
-            <div className="hidden md:block ml-auto">
+            <div className="hidden lg:block ml-auto">
               <div className="flex items-baseline space-x-4">
                 <NavLink
                   to="/"
-                  className="text-lg font-semibold navtext pe-[40px]"
+                  className="text-lg font-semibold navtext lg:pe-2 xl:pe-[20px]"
                 >
                   Home
                 </NavLink>
                 <NavLink
-                  to="/"
-                  className="text-lg font-semibold navtext pe-[40px]"
+                  to="/about"
+                  className="text-lg font-semibold navtext lg:pe-2 xl:pe-[20px]"
                 >
                   About
                 </NavLink>
                 <NavLink
                   to="/appointment"
-                  className="text-lg font-semibold navtext pe-[40px]"
+                  className="text-lg font-semibold nav text lg:pe-2 xl:pe-[20px]"
                 >
                   Appointment
                 </NavLink>
                 <NavLink
-                  to="/"
-                  className="text-lg font-semibold navtext pe-[40px]"
+                  to="/dashboard"
+                  className="text-lg font-semibold nav text lg:pe-2 xl:pe-[20px]"
                 >
-                  Reviews
+                  Dashboard
                 </NavLink>
-                <NavLink
-                  to="/"
-                  className="text-lg font-semibold navtext pe-[40px]"
+                <button
+                  className="text-lg lg:pe-2 xl:pe-[20px]"
+                  onClick={toggleTheme}
                 >
-                 Contact Us
-                </NavLink>
-                <NavLink
-                  to="/login"
-                  className="text-lg font-semibold navtext pe-[40px]"
-                >
-                  Login
-                </NavLink>
+                  {isDarkMode ? (
+                    <FiSun className="text-2xl" />
+                  ) : (
+                    <FiMoon className="text-lg" />
+                  )}
+                </button>
+                {user ? (
+                  <>
+                    <li className="flex justify-center items-center text-lg font-semibold lg:pe-2 xl:pe-[20px]">
+                      {user?.displayName}
+                    </li>
+                    <li className="flex justify-center">
+                      <button
+                        onClick={handleLogout}
+                        className="logout-btn text-lg font-semibold text-white"
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li className="flex justify-center">
+                      <Link
+                        className="login-btn text-[16px] font-semibold text-white"
+                        to="/login"
+                      >
+                        Login
+                      </Link>
+                    </li>
+                  </>
+                )}
               </div>
             </div>
-            <div className="-mr-2 flex md:hidden">
+            <div className="-mr-2 flex lg:hidden">
               <button
                 onClick={toggleNavbar}
                 type="button"
-                className="bg-[#f63e7b] inline-flex items-center justify-center p-2 rounded-md text-white hover:text-white hover:bg-[#f63e7b] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-none focus:ring-white"
+                className="bg-[#07332F] inline-flex items-center justify-center p-2 rounded-md text-white hover:text-white hover:bg-[#07332F] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-none focus:ring-white"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
               >
@@ -110,14 +156,65 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden" id="mobile-menu">
+        <div className="lg:hidden" id="mobile-menu">
           <div className="px-4 pt-8 pb-3 space-y-1 sm:px-3">
             <NavLink
               to="/"
-              className="text-lg font-semibold navtext block mb-5"
+              className="text-lg font-semibold navtext block"
             >
               Home
             </NavLink>
+            <NavLink
+              to="/about"
+              className="text-lg font-semibold navtext block"
+            >
+              About
+            </NavLink>
+            <NavLink
+              to="/appointment"
+              className="text-lg font-semibold navtext block"
+            >
+              Appointment
+            </NavLink>
+            <NavLink
+              to="/dashboard"
+              className="text-lg font-semibold navtext block"
+            >
+              Dashboard
+            </NavLink>
+            <button className="text-lg block" onClick={toggleTheme}>
+              {isDarkMode ? (
+                <FiSun className="text-2xl" />
+              ) : (
+                <FiMoon className="text-lg" />
+              )}
+            </button>
+            {user ? (
+              <div className="">
+                <li className="list-none text-lg font-semibold navtext block mb-5">
+                  {user?.displayName}
+                </li>
+                <li className="list-none">
+                  <button
+                    onClick={handleLogout}
+                    className="login-btn text-[16px] font-semibold text-white"
+                  >
+                    Logout
+                  </button>
+                </li>
+              </div>
+            ) : (
+              <>
+                <li className="list-none pt-7">
+                  <Link
+                    className="logout-btn text-[16px] font-semibold text-white"
+                    to="/login"
+                  >
+                    Login
+                  </Link>
+                </li>
+              </>
+            )}
           </div>
         </div>
       )}

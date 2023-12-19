@@ -30,7 +30,7 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
-  const forgetPassword=(email) => {
+  const forgetPassword = (email) => {
     setLoading(true);
     return sendPasswordResetEmail(auth, email);
   };
@@ -49,26 +49,37 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-//   useEffect(()=>{
-//     const unsubscribe = onAuthStateChanged(auth,currentUser =>{
-//         setUser(currentUser)
-//         // get and set token
-//         if(currentUser){
-//             axios.post('https://lemon-coypu-tam.cyclic.app/jwt',{email:currentUser?.email})
-//             .then(data =>{
-//                 console.log(data.data.token)
-//                 localStorage.setItem('access-token',data.data.token)
-//                 setLoading(false)
-//             })
-//         }
-//         else{
-//             localStorage.removeItem('access-token')
-//         }
-//     })
-//     return ()=>{
-//       return unsubscribe();
-// }
-// },[])
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+  //     setUser(currentUser);
+  //     console.log("current user", currentUser);
+  //     setLoading(false);
+  //   });
+  //   return () => {
+  //     return unsubscribe();
+  //   };
+  // }, []);
+
+    useEffect(()=>{
+      const unsubscribe = onAuthStateChanged(auth,currentUser =>{
+          setUser(currentUser)
+          // get and set token
+          if(currentUser){
+              axios.post('http://localhost:5000/jwt',{email:currentUser?.email})
+              .then(data =>{
+                  console.log(data.data.token)
+                  localStorage.setItem('access-token',data.data.token)
+                  setLoading(false)
+              })
+          }
+          else{
+              localStorage.removeItem('access-token')
+          }
+      })
+      return ()=>{
+        return unsubscribe();
+  }
+  },[])
 
   const authInfo = {
     createUser,

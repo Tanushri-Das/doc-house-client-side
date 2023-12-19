@@ -1,30 +1,56 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Login.css";
-import loginImg from "../../images/login.png";
+import signupImg from "../../images/signup.png";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
   validateCaptcha,
 } from "react-simple-captcha";
+import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
+import SocialLogin from "../../Components/Shared/SocialLogin/SocialLogin";
 
 const Login = () => {
+  const {login}=useContext(AuthContext);
   const [disabled, setDisabled] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
+    login(email, password)
+    .then((result) => {
+      const user = result.user;
+      console.log(user);
+
+      Swal.fire({
+        title: "Good job!",
+        text: "You Login Successfully!",
+        icon: "success",
+        timer: 1500, 
+        showConfirmButton: false, 
+      });
+      
+      navigate(from, { replace: true });
+    });
   };
+
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
+
   const handleValidateCaptcha = (e) => {
     const user_captcha_value = e.target.value;
     if (validateCaptcha(user_captcha_value)) {
@@ -33,18 +59,19 @@ const Login = () => {
       setDisabled(true);
     }
   };
+  
   return (
-    <div className="lg:mx-[135px] grid grid-cols-2 my-16">
+    <div className="lg:mx-10 xl:mx-[135px] grid grid-cols-1 lg:grid-cols-2 my-16">
       <div className="w-full flex-shrink-0 sm:max-w-lg">
-        <img src={loginImg} alt="" className="w-full h-full object-cover" />
+        <img src={signupImg} alt="" className="w-full h-full object-cover" />
       </div>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center mt-12 lg:mt-0">
         <div className="w-full flex-shrink-0 sm:max-w-lg bg-white mx-auto">
           <form onSubmit={handleLogin} className="form p-6 bg-white rounded-xl">
             <h1 className="text-black text-center text-3xl mb-10 font-bold">
               Sign in to Doc House
             </h1>
-            <div className="mb-6">
+            <div className="mb-3">
               <label className="block text-black text-[20px] font-semibold mb-1">
                 Email
               </label>
@@ -55,7 +82,7 @@ const Login = () => {
                 className="form-input"
               />
             </div>
-            <div className="mb-6">
+            <div className="mb-3">
               <div className="flex justify-between mb-1">
                 <label className="block text-black text-[20px] font-semibold">
                   Password
@@ -84,7 +111,7 @@ const Login = () => {
               </div>
             </div>
             <div className="mb-6">
-              <label className="block text-black text-[20px] font-semibold mb-3">
+              <label className="block text-black text-[20px] font-semibold mb-2">
                 <LoadCanvasTemplate />
               </label>
              
@@ -109,8 +136,8 @@ const Login = () => {
                 SIGN UP
               </Link>
             </p>
-            <p className="text-center text-lg font-bold my-5">Or</p>
-          {/* <SocialLogin /> */}
+            <p className="text-center text-lg font-bold my-4">Or</p>
+          <SocialLogin />
           </form>
 
           

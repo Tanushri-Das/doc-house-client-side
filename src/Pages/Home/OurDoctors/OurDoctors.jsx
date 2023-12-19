@@ -1,45 +1,13 @@
 import React from "react";
-import doctor1 from "../../../images/doc1.png";
-import doctor2 from "../../../images/doc2.png";
-import doctor3 from "../../../images/doc3.png";
 import OurDoctor from "../OurDoctors/OurDoctor";
+import useDoctors from "../../../Hooks/useDoctors";
 
 const OurDoctors = () => {
-  const doctors = [
-    {
-      id: 1,
-      name: "Karyen Anderson",
-      designation: "BTP -  Senior Physiotherapist",
-      location: "Dhanmondi, Dhaka, Bangladesh",
-      available: "Available On Mon, 22 December",
-      charge: "$15",
-      rateus: "5",
-      image: doctor1,
-    },
-    {
-      id: 2,
-      name: "Karyen Anderson",
-      designation: "BTP -  Senior Physiotherapist",
-      location: "Dhanmondi, Dhaka, Bangladesh",
-      available: "Available On Mon, 22 December",
-      charge: "$15",
-      rateus: "5",
-      image: doctor2,
-    },
-    ,
-    {
-      id: 3,
-      name: "Karyen Anderson",
-      designation: "BTP -  Senior Physiotherapist",
-      location: "Dhanmondi, Dhaka, Bangladesh",
-      available: "Available On Mon, 22 December",
-      charge: "$15",
-      rateus: "5",
-      image: doctor3,
-    },
-  ];
+  const { doctors } = useDoctors();
+  console.log(doctors)
+
   return (
-    <div className="lg:mx-[135px] mt-12 gap-6 border">
+    <div className="mt-12 gap-6 border md:mx-12 xl:mx-[135px]">
       <h2 className="text-4xl font-bold mb-5 text-center">
         Our Expert Doctors
       </h2>
@@ -50,8 +18,9 @@ const OurDoctors = () => {
         Dolorem, ipsum!
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-12 gap-6 border">
+        
         {doctors?.map((doctor) => (
-          <OurDoctor doctor={doctor} />
+          <OurDoctor key={doctor._id} doctor={doctor} />
         ))}
       </div>
     </div>

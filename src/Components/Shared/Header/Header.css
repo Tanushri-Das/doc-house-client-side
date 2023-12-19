@@ -1,16 +1,26 @@
 .doc {
   color: #f7a582;
   font-family: Source Sans 3;
-  font-size: 35px;
+  /* font-size: 35px; */
   font-style: normal;
   font-weight: 700;
   line-height: normal;
 }
 .header-logo-text {
-  color: #07332F;;
   font-family: Source Sans 3;
-  font-size: 35px;
+  /* font-size: 35px; */
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+}
+.logout-btn{
+  border-radius: 10px;
+  background: #F7A582;
+  padding: 10px 25px;
+  font-style: normal;
+  line-height: 24px;
+  text-align: center; 
+}
+.dark{
+  color: #232A3C;
 }
