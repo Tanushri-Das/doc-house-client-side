@@ -115,7 +115,7 @@ const AllUsers = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium">
                     {user.email}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-6 py-4 whitespace-nowrap text-[15px]">
                     {user.role === "admin" ? (
                       "Admin"
                     ) : user.role === "doctor" ? (

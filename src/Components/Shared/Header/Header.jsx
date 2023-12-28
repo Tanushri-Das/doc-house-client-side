@@ -21,13 +21,13 @@ const Header = () => {
 
   return (
     <nav
-      className={`shadow-lg ${
+      className={`${
         isDarkMode
           ? "bg-dark-background text-dark-text"
           : "bg-light-background text-light-text"
       }`}
     >
-      <div className="px-4 sm:px-6 py-3 lg:px-2">
+      <div className="px-4 sm:px-6 py-3 lg:px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <div className="flex items-center space-x-2">
@@ -49,12 +49,6 @@ const Header = () => {
                   className="text-lg font-semibold navtext lg:pe-2 xl:pe-[20px]"
                 >
                   Home
-                </NavLink>
-                <NavLink
-                  to="/about"
-                  className="text-lg font-semibold navtext lg:pe-2 xl:pe-[20px]"
-                >
-                  About
                 </NavLink>
                 <NavLink
                   to="/appointment"
@@ -158,17 +152,8 @@ const Header = () => {
       {isOpen && (
         <div className="lg:hidden" id="mobile-menu">
           <div className="px-4 pt-8 pb-3 space-y-1 sm:px-3">
-            <NavLink
-              to="/"
-              className="text-lg font-semibold navtext block"
-            >
+            <NavLink to="/" className="text-lg font-semibold navtext block">
               Home
-            </NavLink>
-            <NavLink
-              to="/about"
-              className="text-lg font-semibold navtext block"
-            >
-              About
             </NavLink>
             <NavLink
               to="/appointment"

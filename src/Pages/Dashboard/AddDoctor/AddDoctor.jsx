@@ -93,14 +93,14 @@ const MakeDoctor = () => {
         onSubmit={handleMakeDoctor}
       >
         <div className="mb-3">
-          <label className="block text-black text-[16px] font-semibold mb-1">
+          <label className="block text-black text-xl font-semibold mb-1">
             Email
           </label>
           <input
             type="email"
             name="email"
             placeholder="Email"
-            className="form-input"
+            className="form-input text-[16px]"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />

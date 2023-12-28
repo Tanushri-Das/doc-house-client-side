@@ -10,18 +10,20 @@ const AppointmentOption = ({ option, onSelect }) => {
   };
 
   return (
-    <div>
-      <div
-        className="option-card p-6 flex items-center cursor-pointer"
-        onClick={handleServiceSelect}
+    <div
+      className="option-card p-6 flex items-center cursor-pointer"
+      onClick={handleServiceSelect}
+      data-aos="zoom-in"
+      data-aos-duration="1000"
+    >
+      <img className="appointmentImg" src={image} alt="" />
+      <h2
+        className={`text-2xl font-bold ms-6 ${
+          isDarkMode ? "text-gray-800" : "text-gray-800"
+        }`}
       >
-        <img className="appointmentImg" src={image} alt="" />
-        <h2 className={`text-2xl font-bold ms-6 ${
-            isDarkMode ? "text-gray-800" : "text-gray-800"
-          }`}>
-          {service_name}
-        </h2>
-      </div>
+        {service_name}
+      </h2>
     </div>
   );
 };

@@ -8,7 +8,7 @@ const UserDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/users/email/${user.email}`);
+        const response = await fetch(`https://doc-house-server-side-hoqxfra72-tanushri-das.vercel.app/users/email/${user.email}`);
         if (response.ok) {
           const data = await response.json();
           setUserData(data);

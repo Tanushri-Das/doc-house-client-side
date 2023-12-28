@@ -7,7 +7,7 @@ const useServices = () => {
   const { data: services = [], isLoading: loading } = useQuery({
     queryKey: ["services"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/appointmentOptions");
+      const res = await fetch("https://doc-house-server-side.vercel.app/appointmentOptions");
       return res.json();
     },
   });

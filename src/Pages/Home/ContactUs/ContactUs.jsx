@@ -2,7 +2,7 @@ import React from "react";
 import { MdLocationOn } from "react-icons/md";
 import { BsFillTelephonePlusFill } from "react-icons/bs";
 import { useForm } from "react-hook-form";
-import './ContactUs.css'
+import "./ContactUs.css";
 import Swal from "sweetalert2";
 import axios from "axios";
 
@@ -31,7 +31,10 @@ const ContactUs = () => {
       console.log("New Contact:", newContact);
 
       // Make a POST request to your server
-      const response = await axios.post("http://localhost:5000/contacts", newContact);
+      const response = await axios.post(
+        "https://doc-house-server-side-hoqxfra72-tanushri-das.vercel.app/contacts",
+        newContact
+      );
       console.log("Server Response:", response.data);
 
       // Reset the form after successful submission
@@ -48,14 +51,14 @@ const ContactUs = () => {
     }
   };
   return (
-    <div className="border md:mx-12 xl:mx-[135px] my-[130px] grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-6 contactus">
+    <div className="md:mx-12 xl:mx-[135px] my-[130px] grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-6 contactus py-12">
       <div>
-        <h2 className="text-4xl font-bold mb-5 text-center text-white">Contact With Us</h2>
+        <h2 className="text-4xl font-bold mb-5 text-center text-white">
+          Contact With Us
+        </h2>
         <p className="text-[16px] text-center mb-8 px-16 text-white">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-          fuga, excepturi odio dolores dignissimos a, asperiores magnam facere
-          esse quaerat in, mollitia magni deserunt repellat accusamus tenetur
-          officiis. Dolorem, ipsum!
+          Reach out to us with any questions or concerns. Our team is here to
+          assist you. We look forward to hearing from you!
         </p>
         <div className="flex justify-center mb-6">
           <BsFillTelephonePlusFill className="mt-1 mr-2 text-white" />
@@ -66,8 +69,11 @@ const ContactUs = () => {
           <p className="text-[16px] text-white">Dhanmondi, Dhaka, Bangladesh</p>
         </div>
       </div>
-      <div>
-        <form onSubmit={handleSubmit(onSubmit)} className="form p-6 bg-white rounded-xl w-full">
+      <div className="pe-12">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="form p-6 bg-white rounded-xl w-full"
+        >
           <div className="mb-3">
             <label className="block text-white text-[16px] font-semibold mb-2">
               Name *

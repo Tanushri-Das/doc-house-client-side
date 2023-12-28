@@ -13,14 +13,14 @@ import { useTheme } from "../../../Contexts/ThemeProvider/ThemeProvider";
 
 const Testimonials = () => {
   const { isDarkMode } = useTheme();
-  const [axiosSecure] = useAxiosSecure();
-  const { data: reviews = [] } = useQuery({
-    queryKey: ["reviews"],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/reviews");
-      return res.data;
-    },
-  });
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    fetch("https://doc-house-server-side.vercel.app/reviews")
+      .then((res) => res.json())
+      .then((data) => setReviews(data))
+      .catch((error) => console.error("Error fetching reviews:", error));
+  }, []);
 
   const [swiperSlidesPerView, setSwiperSlidesPerView] = useState(1);
 
@@ -51,13 +51,12 @@ const Testimonials = () => {
   return (
     <div className="mt-[75px] mb-[98px] md:mx-12 xl:mx-[135px] relative">
       <h2 className="text-4xl font-bold mb-5 text-center">
-        What Our Patients Says
+        What Our Patients Say
       </h2>
       <p className="text-[16px] text-center mb-12 px-16">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati fuga,
-        excepturi odio dolores dignissimos a, asperiores magnam facere esse
-        quaerat in, mollitia magni deserunt repellat accusamus tenetur officiis.
-        Dolorem, ipsum!
+        At our dental clinic, we are dedicated to providing the highest quality
+        dental care to our patients. Read what some of our satisfied patients
+        have to say about their experience with us.
       </p>
       <Swiper
         slidesPerView={swiperSlidesPerView}

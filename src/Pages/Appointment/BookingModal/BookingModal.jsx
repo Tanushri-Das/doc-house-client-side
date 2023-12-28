@@ -113,7 +113,7 @@ const BookingModal = ({
               type="text"
               placeholder="Enter Name"
               name="username"
-              value={formData.username}
+              value={user.displayName}
               onChange={handleChange}
               className="form-input w-full mb-2 text-[16px] font-medium"
             />
@@ -121,7 +121,7 @@ const BookingModal = ({
               type="email"
               name="email"
               placeholder="Enter Email"
-              value={formData.email}
+              value={user.email}
               onChange={handleChange}
               className="form-input w-full mb-2 text-[16px] font-medium"
             />
@@ -136,13 +136,13 @@ const BookingModal = ({
             <div className="flex justify-evenly mt-4">
               <button
                 type="submit"
-                className="btn bg-green-600 text-[16px] font-medium text-white py-2 px-4 rounded-lg"
+                className="bg-green-600 text-[16px] font-medium text-white py-2 px-4 rounded-lg"
               >
                 Submit
               </button>
               <button
                 type="button"
-                className="btn bg-red-600 text-[16px] font-medium text-white py-2 px-4 rounded-lg"
+                className="bg-red-600 text-[16px] font-medium text-white py-2 px-4 rounded-lg"
                 onClick={onClose}
               >
                 Cancel

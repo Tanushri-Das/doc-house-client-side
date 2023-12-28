@@ -35,7 +35,7 @@ const AvailableAppointment = ({ selectedDate }) => {
   }, [bookedSlots]);
 
   return (
-    <div className="lg:mx-[135px] my-24">
+    <div className="md:mx-12 xl:mx-[135px] my-24">
       <p className="selected-date text-center text-xl font-medium">
         You picked date: {format(selectedDate, "PP")}.
       </p>
@@ -47,7 +47,7 @@ const AvailableAppointment = ({ selectedDate }) => {
         >
           Please select a service.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-36">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-36">
           {services?.map((option) => (
             <AppointmentOption
               key={option.service_name}

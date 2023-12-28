@@ -30,8 +30,9 @@ const Footer = () => {
               isDarkMode ? "text-white" : "text-gray-500"
             }`}
           >
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. has been since the printer took.
+            Welcome to Dental Ease, your trusted partner in dental care. We are
+            committed to providing top-notch dental services with a focus on
+            your comfort and well-being.
           </p>
         </div>
         <div className="ps-9 lg:ps-0">
