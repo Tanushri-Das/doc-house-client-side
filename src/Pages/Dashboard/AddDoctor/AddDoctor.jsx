@@ -109,7 +109,7 @@ const MakeDoctor = () => {
                   type="email"
                   name="email"
                   placeholder="Email"
-                  className="border text-black border-gray-300 rounded-lg w-full p-3"
+                  className="border text-black border-gray-300 rounded-lg w-full p-3 outline-none"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />

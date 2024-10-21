@@ -30,7 +30,7 @@ const Modal = ({
               type="text"
               id="Name"
               value={editedName}
-              className="form-input w-full text-[16px] font-medium"
+              className="border text-black border-gray-300 rounded-lg w-full p-3 outline-none"
               onChange={onNameChange}
             />
           </div>
@@ -45,7 +45,7 @@ const Modal = ({
               type="text"
               id="designation"
               value={editedDesignation}
-              className="form-input w-full text-[16px] font-medium"
+              className="border text-black border-gray-300 rounded-lg w-full p-3 outline-none"
               onChange={onDesignationChange}
             />
           </div>

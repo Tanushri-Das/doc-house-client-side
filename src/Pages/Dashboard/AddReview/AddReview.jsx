@@ -11,12 +11,7 @@ const img_hosting_token = import.meta.env.VITE_Image_Upload_token;
 const AddReview = () => {
   const { user } = useAuth();
   const [axiosSecure] = useAxiosSecure();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
 
@@ -79,7 +74,7 @@ const AddReview = () => {
                 type="text"
                 {...register("name", { required: true })}
                 value={user.displayName}
-                className="border border-gray-300 text-black rounded-lg w-full p-3"
+                className="border border-gray-300 text-black rounded-lg w-full p-3 outline-none"
               />
             </div>
             <div className="w-full">
@@ -90,7 +85,7 @@ const AddReview = () => {
                 type="text"
                 {...register("email", { required: true })}
                 value={user.email}
-                className="border border-gray-300 text-black rounded-lg w-full p-3"
+                className="border border-gray-300 text-black rounded-lg w-full p-3 outline-none"
               />
             </div>
           </div>
@@ -103,7 +98,7 @@ const AddReview = () => {
                 type="text"
                 {...register("designation", { required: true })}
                 placeholder="Company’s name, Designation"
-                className="border text-black border-gray-300 rounded-lg w-full p-3"
+                className="border text-black border-gray-300 rounded-lg w-full p-3 outline-none"
               />
             </div>
             <div className="w-full">
@@ -111,7 +106,7 @@ const AddReview = () => {
                 Rate Us
               </label>
               <select
-                className="border border-gray-300 text-black rounded-lg w-full p-3"
+                className="border border-gray-300 hover:cursor-pointer text-black rounded-lg w-full p-3 outline-none"
                 {...register("rateus", { required: true })}
               >
                 <option>1</option>
@@ -132,7 +127,7 @@ const AddReview = () => {
             </label>
             <input
               type="file"
-              className="border border-gray-300 text-black rounded-lg w-full p-3"
+              className="border border-gray-300 text-black rounded-lg w-full p-3 outline-none"
               {...register("image", { required: true })}
             />
           </div>
@@ -141,7 +136,7 @@ const AddReview = () => {
               Description
             </label>
             <textarea
-              className="border border-gray-300 rounded-lg w-full text-black h-24 p-3"
+              className="border border-gray-300 rounded-lg w-full text-black h-24 p-3 outline-none"
               placeholder="Review in detail"
               {...register("review", { required: true })}
             ></textarea>

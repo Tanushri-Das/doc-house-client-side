@@ -93,7 +93,7 @@ const AddDoctorPersonalInfo = () => {
                 type="text"
                 value={user.displayName}
                 placeholder="Enter Email"
-                className="border border-gray-300 rounded-lg w-full p-3 text-black"
+                className="border border-gray-300 rounded-lg w-full p-3 text-black outline-none"
                 {...register("name", { required: true, maxLength: 90 })}
               />
             </div>
@@ -105,7 +105,7 @@ const AddDoctorPersonalInfo = () => {
                 type="email"
                 defaultValue={user.email}
                 placeholder="Enter Email"
-                className="border border-gray-300 rounded-lg w-full p-3 text-black"
+                className="border border-gray-300 rounded-lg w-full p-3 text-black outline-none"
                 {...register("email", { required: true, maxLength: 90 })}
                 readOnly
               />
@@ -119,7 +119,7 @@ const AddDoctorPersonalInfo = () => {
               <input
                 type="text"
                 placeholder="Enter Designation"
-                className="border border-gray-300 rounded-lg w-full p-3 text-black"
+                className="border border-gray-300 rounded-lg w-full p-3 text-black outline-none"
                 {...register("designation", { required: true, maxLength: 90 })}
               />
             </div>
@@ -129,7 +129,7 @@ const AddDoctorPersonalInfo = () => {
               </label>
               <select
                 {...register("speciality", { required: true })}
-                className="border border-gray-300 rounded-lg w-full p-3 text-black"
+                className="border border-gray-300 hover:cursor-pointer rounded-lg w-full p-3 text-black outline-none"
               >
                 <option selected>Pick One</option>
                 {Array.isArray(speciality) &&
@@ -147,7 +147,7 @@ const AddDoctorPersonalInfo = () => {
             </label>
             <input
               type="file"
-              className="border border-gray-300 rounded-lg w-full p-3 text-black"
+              className="border hover:cursor-pointer border-gray-300 rounded-lg w-full p-3 text-black outline-none"
               {...register("image", { required: true })}
             />
           </div>

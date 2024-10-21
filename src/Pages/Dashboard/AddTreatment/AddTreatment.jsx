@@ -114,7 +114,7 @@ const AddTreatment = () => {
                   <input
                     type="text"
                     placeholder="Enter title"
-                    className="border text-black border-gray-300 rounded-lg w-full p-3"
+                    className="border text-black border-gray-300 rounded-lg w-full p-3 outline-none"
                     {...register("service_name", {
                       required: true,
                       maxLength: 90,
@@ -128,7 +128,7 @@ const AddTreatment = () => {
                   <input
                     type="text"
                     placeholder="Enter Price"
-                    className="border text-black border-gray-300 rounded-lg w-full p-3"
+                    className="border text-black border-gray-300 rounded-lg w-full p-3 outline-none"
                     {...register("price", { required: true, maxLength: 90 })}
                   />
                 </div>
@@ -161,7 +161,7 @@ const AddTreatment = () => {
                 </label>
                 <input
                   type="file"
-                  className="border border-gray-300 text-black rounded-lg w-full p-3"
+                  className="border border-gray-300 text-black rounded-lg w-full p-3 hover:cursor-pointer"
                   {...register("image", { required: true })}
                 />
               </div>

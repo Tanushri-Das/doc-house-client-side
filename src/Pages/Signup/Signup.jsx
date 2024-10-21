@@ -96,7 +96,7 @@ const Signup = () => {
                   name="name"
                   placeholder="Name"
                   {...register("name", { required: "Name is required" })}
-                  className="border text-black border-gray-300 rounded-lg w-full p-3"
+                  className="border text-black border-gray-300 rounded-lg w-full p-3 outline-none"
                 />
                 {errors.name && (
                   <span className="text-red-600 mt-1">
@@ -115,7 +115,7 @@ const Signup = () => {
                   {...register("email", {
                     required: "Email Address is required",
                   })}
-                  className="border text-black border-gray-300 rounded-lg w-full p-3"
+                  className="border text-black border-gray-300 rounded-lg w-full p-3 outline-none"
                 />
                 {errors.email && (
                   <span className="text-red-600 mt-1">
@@ -137,7 +137,7 @@ const Signup = () => {
                       minLength: 6,
                       maxLength: 10,
                     })}
-                    className="border text-black border-gray-300 rounded-lg w-full p-3"
+                    className="border text-black border-gray-300 rounded-lg w-full p-3 outline-none"
                   />
                   <span
                     className="absolute text-black right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
@@ -174,7 +174,7 @@ const Signup = () => {
                     {...register("confirmPassword", {
                       required: "Confirm Password is required",
                     })}
-                    className="border text-black border-gray-300 rounded-lg w-full p-3"
+                    className="border text-black border-gray-300 rounded-lg w-full p-3 outline-none"
                   />
                   <span
                     className="absolute text-black right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"

@@ -72,27 +72,19 @@ const Login = () => {
                   type="email"
                   name="email"
                   placeholder="Enter Email"
-                  className="border text-black border-gray-300 rounded-lg w-full p-3"
+                  className="border text-black border-gray-300 rounded-lg w-full p-3 outline-none"
                 />
               </div>
               <div>
-                <div className="flex justify-between mb-1">
-                  <label className="block text-gray-700 text-lg font-semibold mb-1">
-                    Password
-                  </label>
-                  <label className="block text-[#ff7800] text-[16px] font-semibold">
-                    <a href="#" className="text-primary link link-hover">
-                      Forgot password?
-                    </a>
-                  </label>
-                </div>
-
+                <label className="block text-gray-700 text-lg font-semibold mb-1">
+                  Password
+                </label>
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
                     placeholder="Enter Password"
-                    className="border text-black border-gray-300 rounded-lg w-full p-3"
+                    className="border text-black border-gray-300 rounded-lg w-full p-3 outline-none"
                   />
 
                   <span

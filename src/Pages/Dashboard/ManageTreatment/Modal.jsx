@@ -53,7 +53,7 @@ const Modal = ({ isOpen, onClose, onUpdate, editedService }) => {
             id="name"
             value={updatedService.service_name}
             onChange={handleNameChange}
-            className="border border-gray-300 rounded-lg text-black mt-2 w-full p-3"
+            className="border border-gray-300 rounded-lg text-black mt-2 w-full p-3 outline-none"
           />
         </div>
         <div className="mb-4">
@@ -65,7 +65,7 @@ const Modal = ({ isOpen, onClose, onUpdate, editedService }) => {
             id="price"
             value={updatedService.price}
             onChange={handlePriceChange}
-            className="border border-gray-300 rounded-lg text-black mt-2 w-full p-3"
+            className="border border-gray-300 rounded-lg text-black mt-2 w-full p-3 outline-none"
           />
         </div>
         <div className="flex justify-center items-center">
