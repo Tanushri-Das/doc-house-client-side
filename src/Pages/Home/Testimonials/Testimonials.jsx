@@ -5,11 +5,9 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { FaStar, FaStarHalf } from "react-icons/fa";
-import { useQuery } from "@tanstack/react-query";
 import "./Testimonials.css";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { RiDoubleQuotesR } from "react-icons/ri";
-import { useTheme } from "../../../Contexts/ThemeProvider/ThemeProvider";
+import useTheme from "../../../Hooks/useTheme";
 
 const Testimonials = () => {
   const { isDarkMode } = useTheme();
@@ -49,7 +47,7 @@ const Testimonials = () => {
   }, []);
 
   return (
-    <div className="mt-[75px] mb-[98px] md:mx-12 xl:mx-[135px] relative">
+    <div className="mt-[75px] mb-12 md:mx-12 xl:mx-20 relative">
       <h2 className="text-4xl font-bold mb-5 text-center">
         What Our Patients Say
       </h2>
@@ -90,7 +88,7 @@ const Testimonials = () => {
                   </div>
                 </div>
                 <div>
-                  <RiDoubleQuotesR className="text-5xl star-color " />
+                  <RiDoubleQuotesR className="text-5xl text-[#f78a5b] " />
                 </div>
               </div>
               <p
@@ -106,11 +104,11 @@ const Testimonials = () => {
                   {Array.from(
                     { length: Math.floor(review.rateus) },
                     (_, index) => (
-                      <FaStar key={index} className="star-color text-lg me-2" />
+                      <FaStar key={index} className="text-[#f78a5b] text-lg me-2" />
                     )
                   )}
                   {review.rateus % 1 === 0.5 && (
-                    <FaStarHalf className="star-color text-lg" />
+                    <FaStarHalf className="text-[#f78a5b] text-lg" />
                   )}
                 </div>
               </div>

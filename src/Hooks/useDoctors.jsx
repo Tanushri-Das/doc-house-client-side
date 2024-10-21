@@ -2,14 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const useDoctors = () => {
   const queryClient = useQueryClient();
-
-  // const { data: doctors = [], isLoading: loading } = useQuery({
-  //   queryKey: ["doctors"],
-  //   queryFn: async () => {
-  //     const res = await fetch("https://doc-house-server-side-hoqxfra72-tanushri-das.vercel.app/doctorsInfo");
-  //     return res.json();
-  //   },
-  // });
+  
   const { data: doctors = [], isLoading: loading } = useQuery({
     queryKey: ["doctors"],
     queryFn: async () => {

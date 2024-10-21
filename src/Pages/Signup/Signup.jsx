@@ -7,16 +7,18 @@ import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import SocialLogin from "../../Components/Shared/SocialLogin/SocialLogin";
+import Button from "../../Components/Shared/Button/Button";
+import useTheme from "../../Hooks/useTheme";
 
 const Signup = () => {
   const { createUser, updateUserProfile } = useAuth();
   const navigate = useNavigate();
   const [axiosSecure] = useAxiosSecure();
+  const { isDarkMode } = useTheme();
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -36,8 +38,6 @@ const Signup = () => {
 
     // Passwords match, proceed with form submission.
     setPasswordsMatch(true);
-
-    console.log(data);
     createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
       console.log(loggedUser);
@@ -53,7 +53,7 @@ const Signup = () => {
               icon: "success",
               timer: 1500,
             });
-            navigate('/')
+            navigate("/");
           })
           .catch((error) => {
             // Handle error, display an error message, etc.
@@ -68,20 +68,24 @@ const Signup = () => {
     });
   };
   return (
-    <div className="lg:mx-10 xl:mx-[135px] grid grid-cols-1 lg:grid-cols-2 my-16">
-      <div className="w-full flex-shrink-0 sm:max-w-lg">
+    <div className="lg:mx-10 xl:mx-20 grid grid-cols-1 lg:grid-cols-2 my-12">
+      <div className="w-full flex-shrink-0 sm:max-w-lg hidden lg:block">
         <img src={signupImg} alt="" className="w-full h-full object-cover" />
       </div>
-      <div className="flex justify-center items-center mt-12 lg:mt-0">
-        <div className="w-full flex-shrink-0 sm:max-w-lg bg-base-100 mx-auto">
+      <div className="flex justify-center items-center mx-2 sm:mx-0">
+        <div
+          className={`w-full flex-shrink-0 sm:max-w-lg mx-auto ${
+            isDarkMode ? "bg-[#151e3d] text-white" : "bg-white text-black"
+          }`}
+        >
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="form p-6 bg-white rounded-xl"
+            className="space-y-4 max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md"
           >
-            <h1 className="text-black text-center text-3xl mb-8 font-bold">
-              Sign Up to Doc House
+            <h1 className="text-black text-center text-4xl mb-6 font-bold">
+              Sign Up
             </h1>
-            <div className="mb-3">
+            <div>
               <label className="block text-black text-lg font-semibold mb-1">
                 Name
               </label>
@@ -90,7 +94,7 @@ const Signup = () => {
                 name="name"
                 placeholder="Name"
                 {...register("name", { required: "Name is required" })}
-                className="form-input"
+                className="border text-black border-gray-300 rounded-lg w-full p-3"
               />
               {errors.name && (
                 <span className="text-red-600 mt-1">
@@ -98,7 +102,7 @@ const Signup = () => {
                 </span>
               )}
             </div>
-            <div className="mb-3">
+            <div>
               <label className="block text-black text-lg font-semibold mb-1">
                 Email
               </label>
@@ -109,7 +113,7 @@ const Signup = () => {
                 {...register("email", {
                   required: "Email Address is required",
                 })}
-                className="form-input"
+                className="border text-black border-gray-300 rounded-lg w-full p-3"
               />
               {errors.email && (
                 <span className="text-red-600 mt-1">
@@ -117,7 +121,7 @@ const Signup = () => {
                 </span>
               )}
             </div>
-            <div className="mb-3">
+            <div>
               <label className="block text-black text-lg font-semibold mb-1">
                 Password
               </label>
@@ -131,10 +135,10 @@ const Signup = () => {
                     minLength: 6,
                     maxLength: 10,
                   })}
-                  className="form-input w-full"
+                  className="border text-black border-gray-300 rounded-lg w-full p-3"
                 />
                 <span
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                  className="absolute text-black right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
                   onClick={togglePasswordVisibility}
                 >
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -156,7 +160,7 @@ const Signup = () => {
                 </span>
               )}
             </div>
-            <div className="mb-3">
+            <div>
               <label className="block text-black text-lg font-semibold mb-1">
                 Confirm Password
               </label>
@@ -168,10 +172,10 @@ const Signup = () => {
                   {...register("confirmPassword", {
                     required: "Confirm Password is required",
                   })}
-                  className="form-input w-full"
+                  className="border text-black border-gray-300 rounded-lg w-full p-3"
                 />
                 <span
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                  className="absolute text-black right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
                   onClick={toggleConfirmPasswordVisibility}
                 >
                   {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
@@ -190,21 +194,19 @@ const Signup = () => {
               )}
             </div>
             <div className="flex justify-center mt-4">
-              <button className="login-btn text-lg font-bold text-white">
-                Create an account
-              </button>
+              <Button name={"Sign Up"} />
             </div>
-            <p className="text-center login-account text-lg mt-4">
-              Already registered? Go to
-              <Link to="/login" className="create-account font-bold ms-1">
-                SIGN IN
+            <p className="text-center text-black text-[16px] font-medium mt-2">
+              Already have an account?
+              <Link to="/login" className="text-[#f78a5b] ms-1">
+                Login
               </Link>
             </p>
-            <p className="text-center text-lg font-semibold my-4">Or</p>
-          <SocialLogin/>
+            <p className="text-center text-lg font-semibold my-4 text-black">
+              Or
+            </p>
+            <SocialLogin />
           </form>
-
-         
         </div>
       </div>
     </div>

@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import Button from "../../../Components/Shared/Button/Button";
+import useTheme from "../../../Hooks/useTheme";
 
 const MakeDoctor = () => {
   const { user } = useAuth();
   const [isAdmin, setIsAdmin] = useState(false);
   const [axiosSecure] = useAxiosSecure();
   const [email, setEmail] = useState("");
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     console.log("Effect: isAdmin", isAdmin);
@@ -23,7 +26,6 @@ const MakeDoctor = () => {
       setIsAdmin(response.data.isAdmin);
     } catch (error) {
       console.error("Error checking admin status:", error);
-      // Handle error if needed
     }
   };
 
@@ -45,7 +47,6 @@ const MakeDoctor = () => {
         if (
           makeDoctorResponse.data.message === "User has been made a doctor."
         ) {
-          // User has been successfully made a doctor
           console.log("User has been made a doctor.");
           Swal.fire({
             position: "top-end",
@@ -54,10 +55,8 @@ const MakeDoctor = () => {
             showConfirmButton: false,
             timer: 1500,
           });
-          // Clear the email input field
           setEmail("");
         } else {
-          // Failed to make the user a doctor
           console.log("Failed to make the user a doctor.");
           Swal.fire({
             icon: "error",
@@ -66,7 +65,6 @@ const MakeDoctor = () => {
           });
         }
       } else {
-        // Email doesn't exist in the collection
         console.log("Email doesn't exist in the collection");
         Swal.fire({
           icon: "error",
@@ -76,45 +74,47 @@ const MakeDoctor = () => {
       }
     } catch (error) {
       console.error("Error making user a doctor:", error);
-      // Handle error if needed
     }
   };
 
   return (
-    <div className="my-16">
-      <h1 className="text-black text-center text-3xl mb-6 font-bold">
+    <div className="my-12">
+      <h1
+        className={`text-black text-center text-4xl mb-6 font-bold ${
+          isDarkMode ? "bg-[#151e3d] text-white" : "bg-white text-black"
+        }`}
+      >
         Make Doctor
       </h1>
-      {/* <div className="mb-3">
-        <p>Role: {isAdmin ? "Admin" : "User"}</p>
-      </div> */}
-      <form
-        className="form p-6 bg-white rounded-xl w-full flex-shrink-0 sm:max-w-lg mx-auto"
-        onSubmit={handleMakeDoctor}
-      >
-        <div className="mb-3">
-          <label className="block text-black text-xl font-semibold mb-1">
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            className="form-input text-[16px]"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-
-        <div className="flex justify-center mt-4">
-          <button
-            type="submit"
-            className="login-btn text-[16px] font-semibold text-white"
+      <div className="flex justify-center items-center mx-2 sm:mx-0">
+        <div
+          className={`w-full flex-shrink-0 sm:max-w-2xl mx-auto ${
+            isDarkMode ? "bg-[#151e3d] text-white" : "bg-white text-black"
+          }`}
+        >
+          <form
+            className="space-y-4 max-w-xl mx-auto bg-white p-8 rounded-lg shadow-xl"
+            onSubmit={handleMakeDoctor}
           >
-            Submit
-          </button>
+            <div>
+              <label className="block text-black text-lg font-semibold mb-1">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                className="border text-black border-gray-300 rounded-lg w-full p-3"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="flex justify-center mt-4">
+              <Button name={"Submit"} />
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

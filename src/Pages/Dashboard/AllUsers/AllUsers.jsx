@@ -14,7 +14,6 @@ const AllUsers = () => {
     },
   });
   const handleDelete = (user) => {
-    console.log(user._id);
     Swal.fire({
       title: "Are you want to delete this user?",
       text: "You won't be able to revert this!",
@@ -26,16 +25,14 @@ const AllUsers = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/users/${user._id}`).then((data) => {
-          console.log("after posting new review", data.data);
-
           if (data.data.deletedCount > 0) {
             refetch();
             Swal.fire({
               title: "Deleted!",
               text: "User has been deleted.",
               icon: "success",
-              timer: 3000, // Time in milliseconds (e.g., 3000ms = 3 seconds)
-              showConfirmButton: false, // Hide the "OK" button
+              timer: 1500,
+              showConfirmButton: false,
             });
           }
         });
@@ -58,90 +55,84 @@ const AllUsers = () => {
       })
       .catch((error) => {
         console.error("Error making user admin:", error);
-        // You can also display an error Swal alert here if needed
       });
   };
   return (
-    <div>
-      <div className="font-bold uppercase flex justify-center mt-16 items-center">
-        <h3 className="text-3xl">Total users : {users.length}</h3>
-      </div>
-      <div className="mt-10">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xl font-medium"
-              >
-                #
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xl font-medium"
-              >
-                Name
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xl font-medium"
-              >
-                Email
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xl font-medium"
-              >
-                Role
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xl font-medium"
-              >
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {Array.isArray(users) &&
-              users.map((user, index) => (
-                <tr key={user._id}>
-                  <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium">
-                    {index + 1}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium">
-                    {user.name}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium">
-                    {user.email}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-[15px]">
-                    {user.role === "admin" ? (
-                      "Admin"
-                    ) : user.role === "doctor" ? (
-                      "Doctor"
-                    ) : (
-                      <button
-                        onClick={() => handleMakeAdmin(user)}
-                        className=""
-                      >
-                        <FaUserShield className="text-lg" />
-                      </button>
-                    )}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium">
-                    <button
-                      onClick={() => handleDelete(user)}
-                      className="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700"
-                    >
-                      <FaTrashAlt className="text-lg" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-      </div>
+    <div className="my-12">
+      {users.length > 0 ? (
+        <>
+          <h1 className="text-2xl sm:text-4xl font-bold flex justify-center items-center">
+            Total users : {users.length}
+          </h1>
+          <div className="mt-8">
+            <div className="overflow-x-auto shadow-md sm:rounded-lg">
+              <table className="min-w-full font-light">
+                <thead className="bg-gray-700 text-gray-200">
+                  <tr>
+                    <th scope="col" className="px-6 py-3">
+                      #
+                    </th>
+                    <th scope="col" className="text-lg text-center px-6 py-3">
+                      Name
+                    </th>
+                    <th scope="col" className="text-lg text-center px-6 py-3">
+                      Email
+                    </th>
+                    <th scope="col" className="text-lg text-center px-6 py-3">
+                      Role
+                    </th>
+                    <th scope="col" className="text-lg text-center px-6 py-3">
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200 text-center">
+                  {Array.isArray(users) &&
+                    users.map((user, index) => (
+                      <tr key={user._id}>
+                        <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
+                          {index + 1}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
+                          {user.name}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
+                          {user.email}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
+                          {user.role === "admin" ? (
+                            "Admin"
+                          ) : user.role === "doctor" ? (
+                            "Doctor"
+                          ) : (
+                            <button
+                              onClick={() => handleMakeAdmin(user)}
+                              className=""
+                            >
+                              <FaUserShield className="text-lg" />
+                            </button>
+                          )}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
+                          <button
+                            onClick={() => handleDelete(user)}
+                            className="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700"
+                          >
+                            <FaTrashAlt className="text-lg" />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="flex justify-center items-center mt-8">
+          <p className="text-xl text-black font-semibold">No user Found</p>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,24 +1,20 @@
-import { useTheme } from "../../../Contexts/ThemeProvider/ThemeProvider";
 import footerlogo from "../../../images/footerlogo.png";
-import "./Footer.css";
+import useTheme from "../../../Hooks/useTheme";
 
 const Footer = () => {
   const { isDarkMode } = useTheme();
+  const currentYear = new Date().getFullYear();
+
   return (
     <div
-      className={`${isDarkMode ? "bg-dark-bg pb-16" : "bg-[#F3F3F3] py-16"}`}
+      className={`${isDarkMode ? "bg-dark-background text-dark-text py-12 border-t-[1px]" : "bg-[#F3F3F3] py-12"}`}
     >
-      <div className="md:mx-12 xl:mx-[135px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="md:mx-12 xl:mx-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         <div className="ps-9 lg:ps-0">
           <div className="flex">
-            <img
-              src={footerlogo}
-              className="mr-2"
-              alt=""
-              style={{ width: "60px", height: "60px" }}
-            />
+            <img src={footerlogo} className="mr-2 w-[60px] h-[60px]" alt="" />
             <h2
-              className={`text-2xl xl:text-4xl font-semibold header-logo-text ${
+              className={`text-2xl xl:text-3xl font-semibold header-logo-text ${
                 isDarkMode ? "text-dark-text" : "text-light-text"
               }`}
             >
@@ -178,11 +174,11 @@ const Footer = () => {
           </p>
         </div>
       </div>
-      <div className="max-w-[1440px] mx-auto mt-[70px] mb-[50px]">
+      <div className="max-w-[1440px] mx-auto py-7">
         <hr />
       </div>
-      <p className="text-center text-lg footer-links">
-        Copyright © 2022 - All right reserved by Doc House Ltd
+      <p className="text-center text-lg">
+        © {currentYear} - All right reserved by Doc House Ltd
       </p>
     </div>
   );

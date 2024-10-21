@@ -4,7 +4,7 @@ import "./AvailableAppointment.css";
 import AppointmentOption from "./AppointmentOption";
 import useServices from "../../../Hooks/useServices";
 import AvailableAppointmentSlot from "./AvailableAppointmentSlot";
-import { useTheme } from "../../../Contexts/ThemeProvider/ThemeProvider";
+import useTheme from "../../../Hooks/useTheme";
 
 const AvailableAppointment = ({ selectedDate }) => {
   const { isDarkMode } = useTheme();

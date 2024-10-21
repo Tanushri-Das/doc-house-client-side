@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
-import CustomSpinner from "../../../Components/CustomSpinner/CustomSpinner";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import Modal from "./Modal";
 import Swal from "sweetalert2";
@@ -10,7 +9,6 @@ const ManageDoctorInfo = () => {
   const { user } = useAuth();
   const [axiosSecure] = useAxiosSecure();
   const [doctorInfo, setDoctorInfo] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editedName, setEditedName] = useState("");
   const [editedDesignation, setEditedDesignation] = useState("");
@@ -97,86 +95,72 @@ const ManageDoctorInfo = () => {
   }, [shouldCloseModal, doctorInfo]);
 
   return (
-    <div className="my-10">
-      <div className="font-bold uppercase flex justify-center items-center">
-        <h3 className="text-3xl"> Manage Doctor Info</h3>
+    <div className="my-12">
+      <h1 className="text-2xl sm:text-4xl font-bold flex justify-center items-center">
+        Manage Doctor Info
+      </h1>
+      <div className="mt-8">
+        <div className="overflow-x-auto shadow-md sm:rounded-lg">
+          <table className="min-w-full font-light">
+            <thead className="bg-gray-700 text-gray-200">
+              <tr>
+                <th scope="col" className="px-6 py-3">
+                  Name
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Image
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Designation
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Speciality
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200 text-center">
+              {doctorInfo ? (
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
+                    {doctorInfo.name}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap flex justify-center font-medium">
+                    <img
+                      src={doctorInfo.image}
+                      alt=""
+                      className="w-24 h-24 rounded-full"
+                    />
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
+                    {doctorInfo.designation}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
+                    {doctorInfo.speciality}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
+                    <button
+                      onClick={() => handleEdit(doctorInfo)}
+                      className="bg-green-600 text-white py-2 px-4 rounded-lg me-2 sm:me-0 mb-2 sm:mb-0 sm:ml-2"
+                    >
+                      <HiOutlinePencilAlt className="text-xl" />
+                    </button>
+                  </td>
+                </tr>
+              ) : (
+                <tr>
+                  <td colSpan="5" className="text-center">
+                    No data available.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div className="table-responsive overflow-x-auto mt-10">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th
-                scope="col"
-                className="px-6 py-3 text-lg font-medium text-center"
-              >
-                Name
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-lg font-medium text-center"
-              >
-                Image
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-lg font-medium text-center"
-              >
-                Designation
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-lg font-medium text-center"
-              >
-                Speciality
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-lg font-medium text-center"
-              >
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? (
-              <tr>
-                <td colSpan="5" className="text-center">
-                  <CustomSpinner />
-                </td>
-              </tr>
-            ) : doctorInfo ? (
-              <tr>
-                <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium text-center">
-                  {doctorInfo.name}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium text-center">
-                  <img src={doctorInfo.image} alt="" className="avatar" />
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium text-center">
-                  {doctorInfo.designation}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium text-center">
-                  {doctorInfo.speciality}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium text-center">
-                  <button
-                    onClick={() => handleEdit(doctorInfo)}
-                    className="bg-green-600 text-white py-2 px-4 rounded-lg me-2 sm:me-0 mb-2 sm:mb-0 sm:ml-2"
-                  >
-                    <HiOutlinePencilAlt className="text-xl" />
-                  </button>
-                </td>
-              </tr>
-            ) : (
-              <tr>
-                <td colSpan="5" className="text-center">
-                  No data available.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+
       {isModalOpen && (
         <Modal
           isOpen={isModalOpen}

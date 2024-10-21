@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import useTheme from "../../../Hooks/useTheme";
+import { FaXmark } from "react-icons/fa6";
+import Button from "../../../Components/Shared/Button/Button";
 
 const Modal = ({ isOpen, onClose, onUpdate, editedService }) => {
   const [updatedService, setUpdatedService] = useState(editedService);
+  const { isDarkMode } = useTheme();
 
   const handleNameChange = (e) => {
     setUpdatedService({
@@ -27,37 +31,45 @@ const Modal = ({ isOpen, onClose, onUpdate, editedService }) => {
         isOpen ? "flex items-center justify-center" : "hidden"
       } fixed inset-0 bg-black bg-opacity-50 z-50`}
     >
-      <div className="modal-container bg-white w-2/5 mx-auto mt-10 p-4 rounded-md shadow-lg">
+      <div
+        className={`max-w-lg mx-auto mt-10 p-4 rounded-md shadow-lg ${
+          isDarkMode ? "bg-[#151e3d] text-white" : "bg-white text-black"
+        }`}
+      >
         <div className="flex justify-end">
-          <button onClick={onClose}>&times;</button>
+          <FaXmark
+            onClick={onClose}
+            className={`h-6 w-6 cursor-pointer ${
+              isDarkMode ? "text-white" : "text-black"
+            }`}
+          />
         </div>
         <div className="mb-4">
-          <label htmlFor="name" className="text-xl">Treatment Name</label>
+          <label htmlFor="name" className="text-lg font-semibold">
+            Treatment Name
+          </label>
           <input
             type="text"
             id="name"
             value={updatedService.service_name}
             onChange={handleNameChange}
-            className="border px-2 py-1 w-full rounded mt-2 text-lg"
+            className="border border-gray-300 rounded-lg text-black mt-2 w-full p-3"
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="price">Price</label>
+          <label htmlFor="price" className="text-lg font-semibold">
+            Price
+          </label>
           <input
             type="text"
             id="price"
             value={updatedService.price}
             onChange={handlePriceChange}
-            className="border px-2 py-1 w-full rounded mt-2 text-lg"
+            className="border border-gray-300 rounded-lg text-black mt-2 w-full p-3"
           />
         </div>
         <div className="flex justify-center items-center">
-          <button
-            onClick={handleSubmit}
-            className="bg-green-600 text-white py-2 px-4 rounded-lg text-lg"
-          >
-            Update
-          </button>
+          <Button onClick={handleSubmit} name={"Update"} />
         </div>
       </div>
     </div>

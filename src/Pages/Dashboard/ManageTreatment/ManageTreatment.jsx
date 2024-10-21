@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 const ManageTreatment = () => {
   const [axiosSecure] = useAxiosSecure();
-  const { services, loading, refetchServices } = useServices();
+  const { services, refetchServices } = useServices();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editedService, setEditedService] = useState({
     _id: null,
@@ -40,7 +40,7 @@ const ManageTreatment = () => {
       if (
         response.data.message === "appointment Options updated successfully"
       ) {
-        refetchServices(); // Use the refetch function provided by React Query
+        refetchServices();
         console.log("Updated Service:", updatedService);
         handleCloseModal();
         Swal.fire({
@@ -59,55 +59,54 @@ const ManageTreatment = () => {
   };
 
   return (
-    <div>
-      <div className="font-bold uppercase flex justify-center mt-16 items-center">
-        <h3 className="text-3xl">Manage Treatment</h3>
-      </div>
-      <div className="mt-10">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xl font-medium"
-              >
-                Treatment Name
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xl font-medium"
-              >
-                Price
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xl font-medium"
-              >
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {services.map((service) => (
-              <tr key={service._id}>
-                <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium">
-                  {service.service_name}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium">
-                  {service.price}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-[15px] font-medium">
-                  <button
-                    onClick={() => handleEdit(service)}
-                    className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-red-700"
-                  >
-                    <HiOutlinePencilAlt className="text-lg" />
-                  </button>
-                </td>
+    <div className="my-12">
+      <h1 className="text-2xl sm:text-4xl font-bold flex justify-center items-center">
+        Manage Treatment
+      </h1>
+      <div className="mt-8">
+        <div className="overflow-x-auto shadow-md sm:rounded-lg">
+          <table className="min-w-full font-light">
+            <thead className="bg-gray-700 text-gray-200">
+              <tr>
+                <th scope="col" className="px-6 py-3">
+                  #
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Treatment Name
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Price
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Action
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200 text-center">
+              {services.map((service, index) => (
+                <tr key={service._id}>
+                  <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
+                    {index + 1}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
+                    {service.service_name}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
+                    {service.price}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
+                    <button
+                      onClick={() => handleEdit(service)}
+                      className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-red-700"
+                    >
+                      <HiOutlinePencilAlt className="text-lg" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       {isModalOpen && (
         <Modal

@@ -1,5 +1,5 @@
 import React from "react";
-import { useTheme } from "../../../Contexts/ThemeProvider/ThemeProvider";
+import useTheme from "../../../Hooks/useTheme";
 
 const AppointmentOption = ({ option, onSelect }) => {
   const { isDarkMode } = useTheme();

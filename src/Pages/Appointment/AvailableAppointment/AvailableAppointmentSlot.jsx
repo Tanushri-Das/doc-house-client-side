@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "./AvailableAppointment.css";
 import BookingModal from "../BookingModal/BookingModal";
+import useAuth from "../../../Hooks/useAuth";
+import Swal from "sweetalert2";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AvailableAppointmentSlot = ({
   service_name,
@@ -12,6 +15,9 @@ const AvailableAppointmentSlot = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSlotBooked, setIsSlotBooked] = useState(bookedSlots.includes(slot));
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -22,9 +28,24 @@ const AvailableAppointmentSlot = ({
   };
 
   const handleBookAppointment = () => {
-    if (!bookedSlots.includes(slot)) {
-      onBooking(slot);
-      handleOpenModal();
+    if (user && user.email) {
+      if (!bookedSlots.includes(slot)) {
+        onBooking(slot);
+        handleOpenModal();
+      }
+    } else {
+      Swal.fire({
+        title: "Please login to order the food",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Login Now",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login", { state: { from: location } });
+        }
+      });
     }
   };
 

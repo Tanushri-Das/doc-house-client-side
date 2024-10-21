@@ -1,12 +1,27 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
-const ThemeContext = createContext();
+// Create the ThemeContext
+export const ThemeContext = createContext();
 
+// ThemeProvider Component
 export const ThemeProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
+  // Retrieve the stored theme value from localStorage on initial load
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("isDarkMode");
+    if (storedTheme) {
+      setIsDarkMode(JSON.parse(storedTheme));
+    }
+  }, []);
+
+  // Toggle theme and save it in localStorage
   const toggleTheme = () => {
-    setIsDarkMode((prevMode) => !prevMode);
+    setIsDarkMode((prevMode) => {
+      const newMode = !prevMode;
+      localStorage.setItem("isDarkMode", JSON.stringify(newMode));
+      return newMode;
+    });
   };
 
   return (
@@ -14,8 +29,4 @@ export const ThemeProvider = ({ children }) => {
       {children}
     </ThemeContext.Provider>
   );
-};
-
-export const useTheme = () => {
-  return useContext(ThemeContext);
 };

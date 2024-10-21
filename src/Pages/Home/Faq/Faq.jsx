@@ -31,7 +31,7 @@ const Faq = () => {
     },
   ];
   return (
-    <div className="md:mx-12 xl:mx-[135px]">
+    <div className="md:mx-12 xl:mx-20">
       <h2 className="text-4xl font-bold mb-12 text-center">
         Frequently Ask Questions
       </h2>

@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
+import useTheme from "../../../Hooks/useTheme";
 
 const SocialLogin = () => {
   const { googleSignIn } = useAuth();
@@ -11,6 +12,7 @@ const SocialLogin = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
+  const { isDarkMode } = useTheme();
 
   const handleGoogleSignIn = () => {
     googleSignIn().then((result) => {
@@ -32,7 +34,6 @@ const SocialLogin = () => {
           navigate(from, { replace: true });
         })
         .catch((error) => {
-          // Handle error, display an error message, etc.
           console.error("User addition failed:", error);
           Swal.fire({
             title: "Error",
@@ -48,13 +49,10 @@ const SocialLogin = () => {
       <button
         onClick={handleGoogleSignIn}
         className="flex items-center py-4 border border-gray-500 rounded-full"
-        style={{ padding: "8px" }} // Adjust the padding as needed
+        style={{ padding: "8px" }}
       >
-        <div
-          className="flex items-center justify-center bg-white rounded-full p-2"
-         
-        >
-          <FaGoogle />
+        <div className="flex items-center justify-center bg-white rounded-full p-2">
+          <FaGoogle className={isDarkMode ? "text-[#f78a5b]" : "text-black"} />
         </div>
       </button>
     </div>
