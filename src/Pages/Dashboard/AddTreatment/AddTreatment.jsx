@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useTheme from "../../../Hooks/useTheme";
 import Button from "../../../Components/Shared/Button/Button";
+import { Helmet } from "react-helmet-async";
 
 const img_hosting_token = import.meta.env.VITE_Image_Upload_token;
 
@@ -83,89 +84,95 @@ const AddTreatment = () => {
   };
 
   return (
-    <div className="my-12">
-      <h1
-        className={`text-black text-center text-4xl mb-6 font-bold ${
-          isDarkMode ? "bg-[#151e3d] text-white" : "bg-white text-black"
-        }`}
-      >
-        Add Service
-      </h1>
-      <div className="flex justify-center items-center mx-2 sm:mx-0">
-        <div
-          className={`w-full flex-shrink-0 sm:max-w-2xl mx-auto ${
+    <>
+      <Helmet>
+        <title>Dental Ease | Add Treatment</title>
+      </Helmet>
+      <div className="my-12">
+        <h1
+          className={`text-black text-center text-4xl mb-6 font-bold ${
             isDarkMode ? "bg-[#151e3d] text-white" : "bg-white text-black"
           }`}
         >
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="space-y-4 max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-xl"
+          Add Service
+        </h1>
+        <div className="flex justify-center items-center mx-2 sm:mx-0">
+          <div
+            className={`w-full flex-shrink-0 sm:max-w-2xl mx-auto ${
+              isDarkMode ? "bg-[#151e3d] text-white" : "bg-white text-black"
+            }`}
           >
-            {/* Flex row for Service Name and Price */}
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="w-full">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="space-y-4 max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-xl"
+            >
+              <div className="flex flex-col md:flex-row gap-4">
+                <div className="w-full">
+                  <label className="block text-gray-700 text-lg font-semibold mb-1">
+                    Service Name *
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter title"
+                    className="border text-black border-gray-300 rounded-lg w-full p-3"
+                    {...register("service_name", {
+                      required: true,
+                      maxLength: 90,
+                    })}
+                  />
+                </div>
+                <div className="w-full">
+                  <label className="block text-gray-700 text-lg font-semibold mb-1">
+                    Price *
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter Price"
+                    className="border text-black border-gray-300 rounded-lg w-full p-3"
+                    {...register("price", { required: true, maxLength: 90 })}
+                  />
+                </div>
+              </div>
+
+              <div>
                 <label className="block text-gray-700 text-lg font-semibold mb-1">
-                  Service Name *
+                  Slots *
+                </label>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-[14px]">
+                  {timeSlots.map((slot, index) => (
+                    <div
+                      key={index}
+                      className={`cursor-pointer text-center rounded text-black border p-2 ${
+                        selectedSlots.includes(slot)
+                          ? "bg-blue-200"
+                          : "bg-white"
+                      }`}
+                      onClick={() => toggleSlot(slot)}
+                    >
+                      {slot}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mb-6">
+                <label className="block text-gray-700 text-lg font-semibold mb-1">
+                  Image *
                 </label>
                 <input
-                  type="text"
-                  placeholder="Enter title"
-                  className="border text-black border-gray-300 rounded-lg w-full p-3"
-                  {...register("service_name", {
-                    required: true,
-                    maxLength: 90,
-                  })}
+                  type="file"
+                  className="border border-gray-300 text-black rounded-lg w-full p-3"
+                  {...register("image", { required: true })}
                 />
               </div>
-              <div className="w-full">
-                <label className="block text-gray-700 text-lg font-semibold mb-1">
-                  Price *
-                </label>
-                <input
-                  type="text"
-                  placeholder="Enter Price"
-                  className="border text-black border-gray-300 rounded-lg w-full p-3"
-                  {...register("price", { required: true, maxLength: 90 })}
-                />
+              <div className="flex justify-center">
+                <Button name={"Submit"} />
               </div>
-            </div>
-
-            <div>
-              <label className="block text-gray-700 text-lg font-semibold mb-1">
-                Slots *
-              </label>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-[14px]">
-                {timeSlots.map((slot, index) => (
-                  <div
-                    key={index}
-                    className={`cursor-pointer text-center rounded text-black border p-2 ${
-                      selectedSlots.includes(slot) ? "bg-blue-200" : "bg-white"
-                    }`}
-                    onClick={() => toggleSlot(slot)}
-                  >
-                    {slot}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mb-6">
-              <label className="block text-gray-700 text-lg font-semibold mb-1">
-                Image *
-              </label>
-              <input
-                type="file"
-                className="border border-gray-300 text-black rounded-lg w-full p-3"
-                {...register("image", { required: true })}
-              />
-            </div>
-            <div className="flex justify-center">
-              <Button name={"Submit"} />
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

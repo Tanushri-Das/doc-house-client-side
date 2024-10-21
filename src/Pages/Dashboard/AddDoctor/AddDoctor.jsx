@@ -4,6 +4,7 @@ import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import Button from "../../../Components/Shared/Button/Button";
 import useTheme from "../../../Hooks/useTheme";
+import { Helmet } from "react-helmet-async";
 
 const MakeDoctor = () => {
   const { user } = useAuth();
@@ -78,44 +79,49 @@ const MakeDoctor = () => {
   };
 
   return (
-    <div className="my-12">
-      <h1
-        className={`text-black text-center text-4xl mb-6 font-bold ${
-          isDarkMode ? "bg-[#151e3d] text-white" : "bg-white text-black"
-        }`}
-      >
-        Make Doctor
-      </h1>
-      <div className="flex justify-center items-center mx-2 sm:mx-0">
-        <div
-          className={`w-full flex-shrink-0 sm:max-w-2xl mx-auto ${
+    <>
+      <Helmet>
+        <title>Dental Ease | Make Doctor</title>
+      </Helmet>
+      <div className="my-12">
+        <h1
+          className={`text-black text-center text-4xl mb-6 font-bold ${
             isDarkMode ? "bg-[#151e3d] text-white" : "bg-white text-black"
           }`}
         >
-          <form
-            className="space-y-4 max-w-xl mx-auto bg-white p-8 rounded-lg shadow-xl"
-            onSubmit={handleMakeDoctor}
+          Make Doctor
+        </h1>
+        <div className="flex justify-center items-center mx-2 sm:mx-0">
+          <div
+            className={`w-full flex-shrink-0 sm:max-w-2xl mx-auto ${
+              isDarkMode ? "bg-[#151e3d] text-white" : "bg-white text-black"
+            }`}
           >
-            <div>
-              <label className="block text-black text-lg font-semibold mb-1">
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                className="border text-black border-gray-300 rounded-lg w-full p-3"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="flex justify-center mt-4">
-              <Button name={"Submit"} />
-            </div>
-          </form>
+            <form
+              className="space-y-4 max-w-xl mx-auto bg-white p-8 rounded-lg shadow-xl"
+              onSubmit={handleMakeDoctor}
+            >
+              <div>
+                <label className="block text-black text-lg font-semibold mb-1">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  className="border text-black border-gray-300 rounded-lg w-full p-3"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="flex justify-center mt-4">
+                <Button name={"Submit"} />
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

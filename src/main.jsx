@@ -7,6 +7,7 @@ import "react-day-picker/dist/style.css";
 import AuthProvider from "./Contexts/AuthProvider/AuthProvider.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "./Contexts/ThemeProvider/ThemeProvider.jsx";
+import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient({
   defaultQueryOptions: {
@@ -22,11 +23,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <ThemeProvider>
-          <div>
+        <HelmetProvider>
+          <ThemeProvider>
             <RouterProvider router={routes} />
-          </div>
-        </ThemeProvider>
+          </ThemeProvider>
+        </HelmetProvider>
       </AuthProvider>
     </QueryClientProvider>
   </React.StrictMode>

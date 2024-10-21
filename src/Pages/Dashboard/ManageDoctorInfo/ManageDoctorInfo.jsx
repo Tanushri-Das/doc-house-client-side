@@ -4,6 +4,7 @@ import useAuth from "../../../Hooks/useAuth";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import Modal from "./Modal";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const ManageDoctorInfo = () => {
   const { user } = useAuth();
@@ -20,10 +21,8 @@ const ManageDoctorInfo = () => {
       try {
         const response = await axiosSecure.get(`/doctors/${user.email}`);
         setDoctorInfo(response.data);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching doctor info:", error);
-        setLoading(false);
       }
     };
 
@@ -95,84 +94,89 @@ const ManageDoctorInfo = () => {
   }, [shouldCloseModal, doctorInfo]);
 
   return (
-    <div className="my-12">
-      <h1 className="text-2xl sm:text-4xl font-bold flex justify-center items-center">
-        Manage Doctor Info
-      </h1>
-      <div className="mt-8">
-        <div className="overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="min-w-full font-light">
-            <thead className="bg-gray-700 text-gray-200">
-              <tr>
-                <th scope="col" className="px-6 py-3">
-                  Name
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Image
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Designation
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Speciality
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200 text-center">
-              {doctorInfo ? (
+    <>
+      <Helmet>
+        <title>Dental Ease | Manage Personal Info</title>
+      </Helmet>
+      <div className="my-12">
+        <h1 className="text-2xl sm:text-4xl font-bold flex justify-center items-center">
+          Manage Doctor Info
+        </h1>
+        <div className="mt-8">
+          <div className="overflow-x-auto shadow-md sm:rounded-lg">
+            <table className="min-w-full font-light">
+              <thead className="bg-gray-700 text-gray-200">
                 <tr>
-                  <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
-                    {doctorInfo.name}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap flex justify-center font-medium">
-                    <img
-                      src={doctorInfo.image}
-                      alt=""
-                      className="w-24 h-24 rounded-full"
-                    />
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
-                    {doctorInfo.designation}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
-                    {doctorInfo.speciality}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
-                    <button
-                      onClick={() => handleEdit(doctorInfo)}
-                      className="bg-green-600 text-white py-2 px-4 rounded-lg me-2 sm:me-0 mb-2 sm:mb-0 sm:ml-2"
-                    >
-                      <HiOutlinePencilAlt className="text-xl" />
-                    </button>
-                  </td>
+                  <th scope="col" className="px-6 py-3">
+                    Name
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Image
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Designation
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Speciality
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Action
+                  </th>
                 </tr>
-              ) : (
-                <tr>
-                  <td colSpan="5" className="text-center">
-                    No data available.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200 text-center">
+                {doctorInfo ? (
+                  <tr>
+                    <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
+                      {doctorInfo.name}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap flex justify-center font-medium">
+                      <img
+                        src={doctorInfo.image}
+                        alt=""
+                        className="w-24 h-24 rounded-full"
+                      />
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
+                      {doctorInfo.designation}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
+                      {doctorInfo.speciality}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-black text-[16px] font-medium">
+                      <button
+                        onClick={() => handleEdit(doctorInfo)}
+                        className="bg-green-600 text-white py-2 px-4 rounded-lg me-2 sm:me-0 mb-2 sm:mb-0 sm:ml-2"
+                      >
+                        <HiOutlinePencilAlt className="text-xl" />
+                      </button>
+                    </td>
+                  </tr>
+                ) : (
+                  <tr>
+                    <td colSpan="5" className="text-center">
+                      No data available.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
 
-      {isModalOpen && (
-        <Modal
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-          onConfirm={handleUpdate}
-          editedName={editedName}
-          editedDesignation={editedDesignation}
-          onNameChange={handleNameChange}
-          onDesignationChange={handleDesignationChange}
-        />
-      )}
-    </div>
+        {isModalOpen && (
+          <Modal
+            isOpen={isModalOpen}
+            onClose={handleCloseModal}
+            onConfirm={handleUpdate}
+            editedName={editedName}
+            editedDesignation={editedDesignation}
+            onNameChange={handleNameChange}
+            onDesignationChange={handleDesignationChange}
+          />
+        )}
+      </div>
+    </>
   );
 };
 
